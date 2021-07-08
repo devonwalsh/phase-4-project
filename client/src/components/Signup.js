@@ -28,13 +28,14 @@ class Signup extends Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <label>Name</label>
-                    <input type="text" id="name" value={this.state.name} onChange={e => this.setState({ name: e.target.value})}></input>
+                    <input type="text" id="name" value={this.state.name} onChange={e => this.setState({ name: e.target.value})}/>
                     <br/>
                     <label>Password</label>
-                    <input type="text" id="password" value={this.state.password} onChange={e => this.setState({ password: e.target.value})}></input>
+                    <input type="text" id="password" value={this.state.password} onChange={e => this.setState({ password: e.target.value})}/>
                     <br/>
                     <label>Confirm Password</label>
-                    <input type="text" id="password_confirmation" value={this.state.password_confirmation} onChange={e => this.setState({ password_confirmation: e.target.value})}></input>
+                    <input type="text" id="password_confirmation" value={this.state.password_confirmation} onChange={e => this.setState({ password_confirmation: e.target.value})}/>
+                    <input type="submit"/>
                 </form>
             </div>
         )
