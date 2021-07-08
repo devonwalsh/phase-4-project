@@ -1,21 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
 
 const NavBar = props => {
     if (props.loggedIn) {
         return (
-            <div>
-                <Link to="/logout">Log Out</Link>
-            </div>
+            <Menu>
+                <Menu.Item as={NavLink} to="/logout">Log Out</Menu.Item>
+            </Menu>
         )
     }
     else {
         return (
-            <div>
-                <Link to="/login">Log In</Link>
+            <Menu>
+                <Menu.Item as={NavLink} to="/login">Log In</Menu.Item>
                 <br/>
-                <Link to="/signup">Sign Up</Link>
-            </div>
+                <Menu.Item as={NavLink} to="/signup">Sign Up</Menu.Item>
+            </Menu>
         )
     }
 }

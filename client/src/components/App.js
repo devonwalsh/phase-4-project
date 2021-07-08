@@ -4,15 +4,27 @@ import Home from './Home';
 import NavBar from './NavBar';
 import Signup from './Signup';
 
+
 class App extends Component {
 
-  state = {}
+  state = {
+    loggedIn: null
+  }
+
+  getUser = () => {
+    fetch('/me')
+    .then(res => res.json())
+    .then(data => data.id ? this.setState({loggedIn: true}) : this.setState({loggedIn: false}))
+  }
+
+  componentDidMount() {
+    this.getUser()
+  }
 
   render() {
       return (
       <div className="App">
-      <h1>My App</h1>
-      <NavBar/>
+      <NavBar loggedIn={this.state.loggedIn}/>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/signup" component={Signup}/>
