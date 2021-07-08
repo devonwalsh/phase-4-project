@@ -21,6 +21,8 @@ class Signup extends Component {
                 password_confirmation: this.state.password_confirmation
             })
         })
+        .then(res => res.json())
+        .then(data => console.log(data))
     }
     
     render() {
