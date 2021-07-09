@@ -4,7 +4,7 @@ import Home from './Home';
 import NavBar from './NavBar';
 import Signup from './Signup';
 import Login from './Login';
-import Recipients from './containers/Recipients';
+import RecipientList from './containers/RecipientList';
 
 
 class App extends Component {
@@ -39,8 +39,8 @@ class App extends Component {
       <div className="App">
       <NavBar loggedIn={this.state.loggedIn} manageLogout={this.manageLogout}/>
       <Switch>
-        <Route exact path="/">{this.state.loggedIn ? <Redirect to="/recipients" /> : <Home />}</Route>
-        <Route exact path="/recipients" render={() => <Recipients loggedIn={this.state.loggedIn} username={this.state.name}/>}/>
+        <Route exact path="/">{this.state.loggedIn ? <Redirect to="/recipientlist" /> : <Home />}</Route>
+        <Route exact path="/recipientlist" render={() => <RecipientList loggedIn={this.state.loggedIn} username={this.state.name}/>}/>
         <Route exact path="/signup" component={Signup}/>
         <Route exact path="/login" render={() => <Login manageLogin={this.manageLogin}/>}/>
       </Switch>

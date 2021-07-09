@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_08_172725) do
+ActiveRecord::Schema.define(version: 2021_07_09_234938) do
+
+  create_table "gifts", force: :cascade do |t|
+    t.string "name"
+    t.float "price"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "recipients", force: :cascade do |t|
+    t.string "name"
+    t.string "likes"
+    t.date "birthday"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
