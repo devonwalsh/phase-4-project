@@ -1,6 +1,6 @@
 class RecipientsController < ApplicationController
     def index
-        user = User.find_by(id: [session:user_id])
+        user = User.find_by(id: session[:user_id])
         if user
             recipients = user.recipients
             render json: recipients
