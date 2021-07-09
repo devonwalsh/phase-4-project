@@ -3,10 +3,23 @@ import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 const NavBar = props => {
+
+    const handleLogout = () => {
+        fetch('/logout', {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(console.log("logged out"))
+
+        props.manageLogout()
+    }
+
     if (props.loggedIn) {
         return (
             <Menu>
-                <Menu.Item as={NavLink} to="/logout">Log Out</Menu.Item>
+                <Menu.Item as={NavLink} to="/" onClick={() => handleLogout()}>Log Out</Menu.Item>
             </Menu>
         )
     }
