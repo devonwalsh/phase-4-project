@@ -64,9 +64,7 @@ class RecipientList extends Component{
             })
         })
         .then(res => res.json())
-        .then(data => this.setState({...this.state, recipients: [...this.state.recipients, data]}))
-
-        this.toggleAddRecipientForm();
+        .then(data => this.setState({...this.state, recipients: [...this.state.recipients, data], newRecipientName: '', newRecipientLikes: '', newRecipientBirthday: '', addRecipientFormOpen: false}))
     }
 
         

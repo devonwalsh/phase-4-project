@@ -42,10 +42,8 @@ class Recipient extends Component {
             })
         })
         .then(res => res.json())
-        .then(data => this.setState({...this.state, gifts: [...this.state.gifts, data]}))
+        .then(data => this.setState({...this.state, gifts: [...this.state.gifts, data], newGiftName: '', newGiftPrice: '', newGiftLink: '', addGiftFormOpen: false}))
         .catch(error => console.log(error))
-
-        this.toggleAddGiftForm();
     }
 
     updateGift = () => {
