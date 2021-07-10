@@ -45,7 +45,7 @@ class App extends Component {
         <Route exact path="/recipientlist" render={() => <RecipientList loggedIn={this.state.loggedIn} username={this.state.name}/>}/>
         <Route exact path="/signup" component={Signup}/>
         <Route exact path="/login" render={() => <Login manageLogin={this.manageLogin}/>}/>
-        <Route exact path="/recipientlist/:recipientId" component={Recipient} />
+        <Route exact path="/recipientlist/:recipientId" render={(props) => <Recipient loggedIn={this.state.loggedIn} {...props}/>}/>
       </Switch>
       </div>
     );
