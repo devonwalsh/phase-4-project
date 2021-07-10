@@ -4,19 +4,22 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 class Recipient extends Component {
 
     state = {
-        recipient: {},
+        recipientName: '',
+        recipientLikes: '',
+        recipientBirthday: '',
         gifts: [],
         loading: true,
         addGiftFormOpen: false,
+        editRecipientFormOpen: false,
         newGiftName: '',
         newGiftPrice: '',
-        newGiftLink: ''
+        newGiftLink: '',
     }
 
     fetchRecipient = () => {
         fetch(`/recipients/${this.props.match.params.recipientId}`)
         .then(res => res.json())
-        .then(data => this.setState({...this.state, recipient: data, gifts: data.gifts}))
+        .then(data => this.setState({...this.state, recipientName: data.name, recipientLikes: data.likes, recipientBirthday: data.birthday, gifts: data.gifts}))
         .then(this.setState({...this.state, loading: false}))
         .catch(error => console.log(error))
     }
@@ -46,25 +49,10 @@ class Recipient extends Component {
         .catch(error => console.log(error))
     }
 
-    updateGift = () => {
-        fetch("/recipients/1/gifts/1", {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: "Yarn",
-                price: 10.99,
-                url: ""
-            })
-        })
-    }
-
     deleteGift = giftId => {
         fetch(`/recipients/${this.props.match.params.recipientId}/gifts/${giftId}`, {
             method: "DELETE"
         })
-        .then(res => res.json())
         .then(this.removeGiftFromState(giftId))
         .catch(error => console.log(error))
     }
@@ -81,6 +69,27 @@ class Recipient extends Component {
         this.setState({...this.state, addGiftFormOpen: !this.state.addGiftFormOpen})
     }
 
+    toggleEditRecipientForm = () => {
+        this.setState({...this.state, editRecipientFormOpen: !this.state.editRecipientFormOpen})
+    }
+
+    editRecipient = (e) => {
+        e.preventDefault();
+        fetch(`/recipients/${this.props.match.params.recipientId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: this.state.recipientName,
+                likes: this.state.recipientLikes,
+                birthday: this.state.recipientBirthday
+            })
+        })
+        .then(res => res.json())
+        .then(data => this.setState({...this.state, recipientName: data.name, recipientLikes: data.likes, recipientBirthday: data.birthday, editRecipientFormOpen: false}))
+    }
+
     componentDidMount() {
         this.fetchRecipient()
     }
@@ -90,9 +99,26 @@ class Recipient extends Component {
             if (this.state.loading === false) {
                 return (
                     <div>
-                        <h1>{this.state.recipient.name}</h1>
-                        <h3>Likes: {this.state.recipient.likes}</h3>
-                        <h3>Birthday: {this.state.recipient.birthday}</h3>
+                        {this.state.editRecipientFormOpen ? 
+                        <form onSubmit={this.editRecipient}>
+                        <label>Name</label>
+                        <input type="text" id="name" value={this.state.recipientName} onChange={e => this.setState({ ...this.state, recipientName: e.target.value})}/>
+                        <br/>
+                        <label>Likes</label>
+                        <input type="text" id="likes" value={this.state.recipientLikes} onChange={e => this.setState({ ...this.state, recipientLikes: e.target.value})}/>
+                        <br/>
+                        <label>Birthday</label>
+                        <input type="date" id="birthday" value={this.state.recipientBirthday} onChange={e => this.setState({ ...this.state, recipientBirthday: e.target.value})}/>
+                        <input type="submit"/>
+                    </form>
+                        :
+                        <div>
+                            <h1>{this.state.recipientName}</h1>
+                            <h3>Likes: {this.state.recipientLikes}</h3>
+                            <h3>Birthday: {this.state.recipientBirthday}</h3>
+                            <button onClick={() => this.toggleEditRecipientForm()}>Edit Giftee</button>
+                        </div>
+                        }
                         {this.state.addGiftFormOpen ? 
                             <form onSubmit={this.createGift}>
                                 <label>Name</label>
@@ -108,7 +134,6 @@ class Recipient extends Component {
                             <button onClick={() => this.toggleAddGiftForm()}>Add Gift</button>
                         }
                         {this.state.gifts.map((item, key) => <p key={key} id={item.id}>{item.name}<button onClick={() => this.deleteGift(item.id)}>Delete</button></p>)}
-                        <button onClick={() => this.updateGift()}>Update Test</button>
                     </div>
                 )
             }

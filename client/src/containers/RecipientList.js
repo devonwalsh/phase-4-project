@@ -32,20 +32,6 @@ class RecipientList extends Component{
         })
     }
 
-    updateRecipient = () => {
-        fetch("/recipients/3", {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: "Jim",
-                likes: "planes",
-                birthday: "1974-08-07"
-            })
-        })
-    }
-
     toggleAddRecipientForm = () => {
         this.setState({...this.state, addRecipientFormOpen: !this.state.addRecipientFormOpen})
     }
@@ -72,7 +58,6 @@ class RecipientList extends Component{
         fetch(`/recipients/${recipientId}`, {
             method: "DELETE"
         })
-        .then(res => res.json())
         .then(this.removeRecipientFromState(recipientId))
         .catch(error => console.log(error))
     }
@@ -110,7 +95,6 @@ class RecipientList extends Component{
                         <button onClick={() => this.toggleAddRecipientForm()}>Add Giftee</button>
                     }
                     {this.state.recipients.map((item, key) => <p key={key} id={item}><NavLink exact to={`/recipientlist/${item.id}`}>{item.name}</NavLink><button onClick={() => this.deleteRecipient(item.id)}>Delete</button></p>)}
-                    <button onClick={() => this.updateRecipient()}>Update Test</button>
                 </Container>
             )
         }

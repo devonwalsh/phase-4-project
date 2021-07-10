@@ -39,6 +39,7 @@ class RecipientsController < ApplicationController
             recipient = Recipient.find_by(id: recipient_params[:id])
             if recipient
                 recipient.update(recipient_params)
+                render json: recipient
             else
                 render json: { error: "Recipient not found" }, status: :not_found
             end
