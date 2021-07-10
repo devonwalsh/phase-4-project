@@ -1,5 +1,5 @@
 class GiftSerializer < ActiveModel::Serializer
-  attributes :id, :name, :price, :recipient_id
+  attributes :id, :name, :price
 
   belongs_to :recipient
 end

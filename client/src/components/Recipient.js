@@ -22,14 +22,28 @@ class Recipient extends Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                name: "Yarn",
-                price: 10.99,
+                name: "Buttons",
+                price: 3.99,
                 url: ""
             })
         })
         .then(res => res.json())
         .then(data => console.log(data))
         .catch(error => console.log(error))
+    }
+
+    updateGift = () => {
+        fetch("/recipients/1/gifts/1", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: "Yarn",
+                price: 10.99,
+                url: ""
+            })
+        })
     }
 
     componentDidMount() {
@@ -41,6 +55,7 @@ class Recipient extends Component {
             <div>
                 <button onClick={() => this.fetchGifts()}>Fetch Test</button>
                 <button onClick={() => this.createGift()}>Create Test</button>
+                <button onClick={() => this.updateGift()}>Update Test</button>
             </div>
         )
     }
