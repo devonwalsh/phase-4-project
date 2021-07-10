@@ -28,7 +28,7 @@ class RecipientList extends Component{
     }
 
     updateRecipient = () => {
-        fetch("/recipients/2", {
+        fetch("/recipients/3", {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -38,6 +38,15 @@ class RecipientList extends Component{
                 likes: "planes",
                 birthday: "1974-08-07"
             })
+        })
+    }
+
+    deleteRecipient = () => {
+        fetch("/recipients/3", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
         })
     }
 
@@ -54,6 +63,7 @@ class RecipientList extends Component{
                     {this.state.recipients.map((item, key) => <NavLink key={key} exact to={`/recipientlist/${item.id}`}>{item.name}</NavLink>)}
                     <button onClick={() => this.createRecipient()}>Create Test</button>
                     <button onClick={() => this.updateRecipient()}>Update Test</button>
+                    <button onClick={() => this.deleteRecipient()}>Delete Test</button>
                 </div>
             )
         }

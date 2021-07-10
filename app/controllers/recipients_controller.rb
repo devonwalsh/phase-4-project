@@ -48,6 +48,18 @@ class RecipientsController < ApplicationController
     end
 
     def destroy
+        user = User.find_by(id: session[:user_id])
+        if user
+            recipient = Recipient.find_by(id: recipient_params[:id])
+            if recipient
+                recipient.destroy
+                head :no_content
+            else
+                render json: { error: "Recipient not found" }, status: :not_found
+            end
+        else
+            render json: { errors: ["Not authorized"]}, status: :unauthorized
+        end
     end
 
     def recipient_params
