@@ -14,6 +14,7 @@ class Recipient extends Component {
         newGiftPrice: '',
         newGiftLink: '',
         editRecipientFormOpen: false,
+        editGiftId: '',
         editGiftName: '',
         editGiftPrice: '',
         editGiftLink: '',
@@ -85,6 +86,35 @@ class Recipient extends Component {
         .then(data => this.setState({...this.state, recipientName: data.name, recipientLikes: data.likes, recipientBirthday: data.birthday, editRecipientFormOpen: false}))
     }
 
+    populateEditGift = (giftId) => {
+        let gift = this.state.gifts.find(item => item.id === parseInt(giftId))
+        this.setState({...this.state, editGiftId: gift.id, editGiftName: gift.name, editGiftPrice: gift.price, editGiftLink: gift.link})
+    }
+
+    editGift = (e) => {
+        e.preventDefault();
+        fetch(`/recipients/${this.props.match.params.recipientId}/gifts/${this.state.editGiftId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: this.state.editGiftName,
+                price: this.state.editGiftPrice,
+                url: this.state.editGiftLink
+            })
+        })
+        .then(res => res.json())
+        .then(data => this.updateGiftInState(data))
+    }
+
+    updateGiftInState = (gift) => {
+        let index = this.state.gifts.findIndex(item => item.id === gift.id)
+        let updatedGifts = this.state.gifts
+        updatedGifts[index] = gift
+        this.setState({...this.state, gifts: updatedGifts, editGiftId: '', editGiftName: '', editGiftPrice: '', editGiftLink: ''})
+    }
+
     componentDidMount() {
         this.fetchRecipient()
     }
@@ -128,7 +158,28 @@ class Recipient extends Component {
                             </form> : 
                             <button onClick={() => this.toggleAddGiftForm()}>Add Gift</button>
                         }
-                        {this.state.gifts.map((item, key) => <Segment key={key} id={item.id}>{item.name}<br/>{item.price}<br/><a href={item.url} target="_blank" rel="noreferrer">{item.url}</a><button onClick={() => this.deleteGift(item.id)}>Delete</button></Segment>)}
+                        {this.state.gifts.map((item, key) => 
+                            this.state.editGiftId === item.id ? 
+                            <Segment>
+                            <form onSubmit={(e) => this.editGift(e)}>
+                                <label>Name</label>
+                                <input type="text" id="name" value={this.state.editGiftName} onChange={e => this.setState({ ...this.state, editGiftName: e.target.value})}/>
+                                <br/>
+                                <label>Price</label>
+                                <input type="integer" id="price" value={this.state.editGiftPrice} onChange={e => this.setState({ ...this.state, editGiftPrice: e.target.value})}/>
+                                <br/>
+                                <label>Link</label>
+                                <input type="text" id="link" value={this.state.editGiftLink} onChange={e => this.setState({ ...this.state, editGiftLink: e.target.value})}/>
+                                <input type="submit"/>
+                            </form>
+                            </Segment> :
+                            <Segment key={key} id={item.id}>
+                                {item.name}<br/>
+                                {item.price}<br/>
+                                <a href={item.url} target="_blank" rel="noreferrer">{item.url}</a>
+                                <button onClick={(e) => this.populateEditGift(e.target.parentNode.id)}>Edit</button>
+                                <button onClick={() => this.deleteGift(item.id)}>Delete</button>
+                            </Segment>)}
                     </div>
                 )
             }
