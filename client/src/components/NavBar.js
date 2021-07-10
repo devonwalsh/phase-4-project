@@ -19,6 +19,8 @@ const NavBar = props => {
     if (props.loggedIn) {
         return (
             <Menu>
+                <Menu.Item as={NavLink} to="/recipientlist">Your Giftees</Menu.Item>
+                <br/>
                 <Menu.Item as={NavLink} to="/" onClick={() => handleLogout()}>Log Out</Menu.Item>
             </Menu>
         )

@@ -9,6 +9,20 @@ class RecipientsController < ApplicationController
         end
     end
 
+    def show
+        user = User.find_by(id: session[:user_id])
+        if user
+            recipient = Recipient.find_by(id: recipient_params[:id])
+            if recipient
+                render json: recipient
+            else
+                render json: { error: "Recipient not found" }, status: :not_found
+            end
+        else
+            render json: { errors: ["Not authorized"]}, status: :unauthorized
+        end
+    end
+
     def create
         user = User.find_by(id: session[:user_id])
         if user
@@ -20,7 +34,7 @@ class RecipientsController < ApplicationController
     end
 
     def recipient_params
-        params.permit(:name, :likes, :birthday, :user_id)
+        params.permit(:id, :name, :likes, :birthday, :user_id)
     end
 
 end

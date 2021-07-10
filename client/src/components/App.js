@@ -5,6 +5,7 @@ import NavBar from './NavBar';
 import Signup from './Signup';
 import Login from './Login';
 import RecipientList from './containers/RecipientList';
+import Recipient from './Recipient';
 
 
 class App extends Component {
@@ -43,6 +44,7 @@ class App extends Component {
         <Route exact path="/recipientlist" render={() => <RecipientList loggedIn={this.state.loggedIn} username={this.state.name}/>}/>
         <Route exact path="/signup" component={Signup}/>
         <Route exact path="/login" render={() => <Login manageLogin={this.manageLogin}/>}/>
+        <Route exact path="/recipients/:recipientId" component={Recipient} />
       </Switch>
       </div>
     );
