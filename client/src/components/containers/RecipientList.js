@@ -20,9 +20,23 @@ class RecipientList extends Component{
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                name: "Mom",
-                likes: "knitting",
-                birthday: "1956-03-20"
+                name: "Bob",
+                likes: "cars",
+                birthday: "1980-05-14"
+            })
+        })
+    }
+
+    updateRecipient = () => {
+        fetch("/recipients/2", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: "Jim",
+                likes: "planes",
+                birthday: "1974-08-07"
             })
         })
     }
@@ -37,8 +51,9 @@ class RecipientList extends Component{
                 <div>
                     <h1>Welcome, {this.props.username}!</h1>
                     <h2>Recipients List</h2>
-                    {this.state.recipients.map((item, key) => <NavLink key={key} exact to={`/recipients/${item.id}`}>{item.name}</NavLink>)}
+                    {this.state.recipients.map((item, key) => <NavLink key={key} exact to={`/recipientlist/${item.id}`}>{item.name}</NavLink>)}
                     <button onClick={() => this.createRecipient()}>Create Test</button>
+                    <button onClick={() => this.updateRecipient()}>Update Test</button>
                 </div>
             )
         }
