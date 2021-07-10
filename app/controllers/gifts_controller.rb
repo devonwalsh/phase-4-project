@@ -53,9 +53,13 @@ class GiftsController < ApplicationController
         if user
             recipient = Recipient.find_by(id: gift_params[:recipient_id])
             if recipient
-                gift = recipient.gifts.update(gift_params)
-                recipient.destroy
-                head :no_content
+                gift = Gift.find_by(id: gift_params[:id])
+                if gift
+                    gift.destroy
+                    head :no_content
+                else
+                    render json: { error: "Gift not found" }, status: :not_found
+                end
             else
                 render json: { error: "Recipient not found" }, status: :not_found
             end

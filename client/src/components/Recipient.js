@@ -46,6 +46,15 @@ class Recipient extends Component {
         })
     }
 
+    deleteGift = () => {
+        fetch("/recipients/1/gifts/3", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    }
+
     componentDidMount() {
         this.fetchRecipient()
     }
@@ -56,6 +65,7 @@ class Recipient extends Component {
                 <button onClick={() => this.fetchGifts()}>Fetch Test</button>
                 <button onClick={() => this.createGift()}>Create Test</button>
                 <button onClick={() => this.updateGift()}>Update Test</button>
+                <button onClick={() => this.deleteGift()}>Delete Test</button>
             </div>
         )
     }
