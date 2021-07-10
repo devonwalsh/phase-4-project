@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Dimmer, Loader, Segment } from 'semantic-ui-react';
 
 class Recipient extends Component {
 
@@ -10,24 +10,19 @@ class Recipient extends Component {
         gifts: [],
         loading: true,
         addGiftFormOpen: false,
-        editRecipientFormOpen: false,
         newGiftName: '',
         newGiftPrice: '',
         newGiftLink: '',
+        editRecipientFormOpen: false,
+        editGiftName: '',
+        editGiftPrice: '',
+        editGiftLink: '',
     }
 
     fetchRecipient = () => {
         fetch(`/recipients/${this.props.match.params.recipientId}`)
         .then(res => res.json())
-        .then(data => this.setState({...this.state, recipientName: data.name, recipientLikes: data.likes, recipientBirthday: data.birthday, gifts: data.gifts}))
-        .then(this.setState({...this.state, loading: false}))
-        .catch(error => console.log(error))
-    }
-
-    fetchGifts = () => {
-        fetch(`/recipients/${this.props.match.params.recipientId}/gifts`)
-        .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => this.setState({...this.state, recipientName: data.name, recipientLikes: data.likes, recipientBirthday: data.birthday, gifts: data.gifts, loading: false}))
         .catch(error => console.log(error))
     }
 
@@ -133,7 +128,7 @@ class Recipient extends Component {
                             </form> : 
                             <button onClick={() => this.toggleAddGiftForm()}>Add Gift</button>
                         }
-                        {this.state.gifts.map((item, key) => <p key={key} id={item.id}>{item.name}<button onClick={() => this.deleteGift(item.id)}>Delete</button></p>)}
+                        {this.state.gifts.map((item, key) => <Segment key={key} id={item.id}>{item.name}<br/>{item.price}<br/><a href={item.url} target="_blank">{item.url}</a><button onClick={() => this.deleteGift(item.id)}>Delete</button></Segment>)}
                     </div>
                 )
             }
