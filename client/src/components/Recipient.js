@@ -111,7 +111,6 @@ class Recipient extends Component {
                         }
                         {this.state.gifts.map((item, key) => <p key={key} id={item.id}>{item.name}<button onClick={() => this.deleteGift(item.id)}>Delete</button></p>)}
                         <button onClick={() => this.updateGift()}>Update Test</button>
-                        <button onClick={() => this.deleteGift()}>Delete Test</button>
                     </div>
                 )
             }
