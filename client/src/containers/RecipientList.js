@@ -46,15 +46,6 @@ class RecipientList extends Component{
         })
     }
 
-    deleteRecipient = () => {
-        fetch("/recipients/3", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-    }
-
     toggleAddRecipientForm = () => {
         this.setState({...this.state, addRecipientFormOpen: !this.state.addRecipientFormOpen})
     }

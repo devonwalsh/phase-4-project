@@ -62,13 +62,21 @@ class Recipient extends Component {
         })
     }
 
-    deleteGift = () => {
-        fetch("/recipients/1/gifts/3", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
+    deleteGift = giftId => {
+        fetch(`/recipients/${this.props.match.params.recipientId}/gifts/${giftId}`, {
+            method: "DELETE"
         })
+        .then(res => res.json())
+        .then(this.removeGiftFromState(giftId))
+        .catch(error => console.log(error))
+    }
+
+    removeGiftFromState = giftId => {
+        let updatedState = this.state.gifts.filter(
+          item => item.id !== giftId
+        )
+    
+        this.setState({...this.state, gifts: updatedState})
     }
 
     toggleAddGiftForm = () => {
@@ -101,7 +109,7 @@ class Recipient extends Component {
                             </form> : 
                             <button onClick={() => this.toggleAddGiftForm()}>Add Gift</button>
                         }
-                        {this.state.gifts.map((item, key) => <p key={key} id={item.id}>{item.name}</p>)}
+                        {this.state.gifts.map((item, key) => <p key={key} id={item.id}>{item.name}<button onClick={() => this.deleteGift(item.id)}>Delete</button></p>)}
                         <button onClick={() => this.updateGift()}>Update Test</button>
                         <button onClick={() => this.deleteGift()}>Delete Test</button>
                     </div>
