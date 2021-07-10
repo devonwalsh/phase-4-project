@@ -11,7 +11,6 @@ const NavBar = props => {
                 "Content-Type": "application/json"
             }
         })
-        .then(console.log("logged out"))
 
         props.manageLogout()
     }

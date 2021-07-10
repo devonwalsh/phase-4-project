@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_09_234938) do
+ActiveRecord::Schema.define(version: 2021_07_10_013623) do
 
   create_table "gifts", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_07_09_234938) do
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "recipient_id"
   end
 
   create_table "recipients", force: :cascade do |t|
