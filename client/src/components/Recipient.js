@@ -128,7 +128,7 @@ class Recipient extends Component {
                             </form> : 
                             <button onClick={() => this.toggleAddGiftForm()}>Add Gift</button>
                         }
-                        {this.state.gifts.map((item, key) => <Segment key={key} id={item.id}>{item.name}<br/>{item.price}<br/><a href={item.url} target="_blank">{item.url}</a><button onClick={() => this.deleteGift(item.id)}>Delete</button></Segment>)}
+                        {this.state.gifts.map((item, key) => <Segment key={key} id={item.id}>{item.name}<br/>{item.price}<br/><a href={item.url} target="_blank" rel="noreferrer">{item.url}</a><button onClick={() => this.deleteGift(item.id)}>Delete</button></Segment>)}
                     </div>
                 )
             }

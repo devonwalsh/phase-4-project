@@ -22,7 +22,7 @@ class Signup extends Component {
             })
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => data.id ? this.props.manageLogin(data.name) : console.log("Wrong username or password"))
     }
     
     render() {

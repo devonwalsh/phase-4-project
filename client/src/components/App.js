@@ -43,7 +43,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/">{this.state.loggedIn ? <Redirect to="/recipientlist" /> : <Home />}</Route>
         <Route exact path="/recipientlist" render={() => <RecipientList loggedIn={this.state.loggedIn} username={this.state.name}/>}/>
-        <Route exact path="/signup" component={Signup}/>
+        <Route exact path="/signup" render={() => <Signup manageLogin={this.manageLogin}/>}/>
         <Route exact path="/login" render={() => <Login manageLogin={this.manageLogin}/>}/>
         <Route exact path="/recipientlist/:recipientId" render={(props) => <Recipient loggedIn={this.state.loggedIn} {...props}/>}/>
       </Switch>
