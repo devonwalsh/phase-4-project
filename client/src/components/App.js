@@ -4,8 +4,9 @@ import Home from './Home';
 import NavBar from './NavBar';
 import Signup from './Signup';
 import Login from './Login';
-import RecipientList from './containers/RecipientList';
+import RecipientList from '../containers/RecipientList';
 import Recipient from './Recipient';
+import '../App.css';
 
 
 class App extends Component {
