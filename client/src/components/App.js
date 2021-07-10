@@ -25,8 +25,8 @@ class App extends Component {
     this.getUser()
   }
 
-  manageLogin = () => {
-    this.setState({loggedIn: true})
+  manageLogin = username => {
+    this.setState({loggedIn: true, name: username})
     this.props.history.push("/")
   }
 

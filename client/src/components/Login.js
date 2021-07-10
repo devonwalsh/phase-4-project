@@ -20,7 +20,7 @@ class Login extends Component {
             })
         })
         .then(res => res.json())
-        .then(data => data.id ? this.props.manageLogin() : console.log("Wrong username or password"))
+        .then(data => data.id ? this.props.manageLogin(data.name) : console.log("Wrong username or password"))
     }
     
     render() {
