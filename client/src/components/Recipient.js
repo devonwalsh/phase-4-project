@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimmer, Loader, Segment } from 'semantic-ui-react';
+import { Container, Dimmer, Loader, Segment, Button, Form } from 'semantic-ui-react';
 
 class Recipient extends Component {
 
@@ -88,7 +88,7 @@ class Recipient extends Component {
 
     populateEditGift = (giftId) => {
         let gift = this.state.gifts.find(item => item.id === parseInt(giftId))
-        this.setState({...this.state, editGiftId: gift.id, editGiftName: gift.name, editGiftPrice: gift.price, editGiftLink: gift.link})
+        this.setState({...this.state, editGiftId: gift.id, editGiftName: gift.name, editGiftPrice: gift.price, editGiftLink: gift.url})
     }
 
     editGift = (e) => {
@@ -123,9 +123,9 @@ class Recipient extends Component {
         if (this.props.loggedIn) {
             if (this.state.loading === false) {
                 return (
-                    <div>
+                    <Container className="gift-list">
                         {this.state.editRecipientFormOpen ? 
-                        <form onSubmit={this.editRecipient}>
+                        <Form className="styled-form" onSubmit={this.editRecipient}>
                         <label>Name</label>
                         <input type="text" id="name" value={this.state.recipientName} onChange={e => this.setState({ ...this.state, recipientName: e.target.value})}/>
                         <br/>
@@ -134,53 +134,57 @@ class Recipient extends Component {
                         <br/>
                         <label>Birthday</label>
                         <input type="date" id="birthday" value={this.state.recipientBirthday} onChange={e => this.setState({ ...this.state, recipientBirthday: e.target.value})}/>
-                        <input type="submit"/>
-                    </form>
+                        <input class="ui button submit-button" type="submit"/>
+                    </Form>
                         :
-                        <div>
+                        <div className="recipient-info">
                             <h1>{this.state.recipientName}</h1>
-                            <h3>Likes: {this.state.recipientLikes}</h3>
-                            <h3>Birthday: {this.state.recipientBirthday}</h3>
-                            <button onClick={() => this.toggleEditRecipientForm()}>Edit Giftee</button>
+                            <h3 className="recipient-info-text">Likes: {this.state.recipientLikes}</h3>
+                            <h3 className="recipient-info-text">Birthday: {this.state.recipientBirthday}</h3>
+                            <Button class="ui button" className="edit-giftee-button" color="blue" inverted onClick={() => this.toggleEditRecipientForm()}>Edit Giftee</Button>
                         </div>
                         }
                         {this.state.addGiftFormOpen ? 
-                            <form onSubmit={this.createGift}>
+                            <Form className="styled-form" onSubmit={this.createGift}>
                                 <label>Name</label>
                                 <input type="text" id="name" value={this.state.newGiftName} onChange={e => this.setState({ ...this.state, newGiftName: e.target.value})}/>
                                 <br/>
                                 <label>Price</label>
-                                <input type="integer" id="price" value={this.state.newGiftPrice} onChange={e => this.setState({ ...this.state, newGiftPrice: e.target.value})}/>
+                                <input type="number" id="price" value={this.state.newGiftPrice} onChange={e => this.setState({ ...this.state, newGiftPrice: e.target.value})}/>
                                 <br/>
                                 <label>Link</label>
                                 <input type="text" id="link" value={this.state.newGiftLink} onChange={e => this.setState({ ...this.state, newGiftLink: e.target.value})}/>
-                                <input type="submit"/>
-                            </form> : 
-                            <button onClick={() => this.toggleAddGiftForm()}>Add Gift</button>
+                                <input class="ui button submit-button" type="submit"/>
+                            </Form> : 
+                            <Button color="blue" className="add-gift-button" onClick={() => this.toggleAddGiftForm()}>Add Gift</Button>
                         }
                         {this.state.gifts.map((item, key) => 
                             this.state.editGiftId === item.id ? 
                             <Segment>
-                            <form onSubmit={(e) => this.editGift(e)}>
+                            <Form className="styled-form" onSubmit={(e) => this.editGift(e)}>
                                 <label>Name</label>
                                 <input type="text" id="name" value={this.state.editGiftName} onChange={e => this.setState({ ...this.state, editGiftName: e.target.value})}/>
                                 <br/>
                                 <label>Price</label>
-                                <input type="integer" id="price" value={this.state.editGiftPrice} onChange={e => this.setState({ ...this.state, editGiftPrice: e.target.value})}/>
+                                <input type="number" id="price" value={this.state.editGiftPrice} onChange={e => this.setState({ ...this.state, editGiftPrice: e.target.value})}/>
                                 <br/>
                                 <label>Link</label>
                                 <input type="text" id="link" value={this.state.editGiftLink} onChange={e => this.setState({ ...this.state, editGiftLink: e.target.value})}/>
-                                <input type="submit"/>
-                            </form>
+                                <input class="ui button submit-button" type="submit"/>
+                            </Form>
                             </Segment> :
-                            <Segment key={key} id={item.id}>
-                                {item.name}<br/>
-                                {item.price}<br/>
-                                <a href={item.url} target="_blank" rel="noreferrer">{item.url}</a>
-                                <button onClick={(e) => this.populateEditGift(e.target.parentNode.id)}>Edit</button>
-                                <button onClick={() => this.deleteGift(item.id)}>Delete</button>
+                            <Segment className="gift-item" key={key} id={item.id}>
+                                <div>
+                                    {item.name}<br/>
+                                    ${item.price}<br/>
+                                    <a href={item.url} target="_blank" rel="noreferrer">{item.url}</a>
+                                </div>
+                                <div>
+                                    <Button class="ui button" className="gift-button" onClick={(e) => this.populateEditGift(e.target.parentNode.parentNode.id)}>Edit</Button>
+                                    <Button class="ui button" className="gift-button" onClick={() => this.deleteGift(item.id)}>Delete</Button>
+                                </div>
                             </Segment>)}
-                    </div>
+                    </Container>
                 )
             }
             else {

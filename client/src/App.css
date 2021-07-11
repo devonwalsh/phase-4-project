@@ -4,6 +4,10 @@ html, body {
   margin: 0;
 }
 
+h3 {
+  line-height: 10px;
+}
+
 .App {
   background-image: url("./blue-snow.png");
   height: 100%;
@@ -20,7 +24,7 @@ html, body {
   width: 40%;
 }
 
-.login-signup-div {
+.form-div {
   background-color: white;
   padding: 10px;
   width: 50%;
@@ -29,11 +33,12 @@ html, body {
   margin-top: 40px;
 }
 
-.login-signup-form.ui.form {
+.styled-form.ui.form {
   width: 50%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 40px;
+  text-align: left;
 }
 
 .recipient-list.ui.container {
@@ -76,5 +81,48 @@ html, body {
 }
 
 .delete-button.ui.button {
+  margin-top: 20px;
+}
+
+.recipient-info {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+}
+
+.recipient-info-text {
+  padding: 0px;
+  margin: 0px;
+}
+
+.edit-giftee-button.ui.button {
+  margin-top: 20px;
+}
+
+.gift-list.ui.container {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  float: center;
+  width: 60%;
+}
+
+.add-gift-button.ui.button {
+  margin-top: 20px;
+}
+
+.gift-item.ui.segment {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gift-button.ui.button {
+  margin-left: 5px;
+  margin-right: 5px;
   margin-top: 20px;
 }

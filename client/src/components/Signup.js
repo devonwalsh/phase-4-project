@@ -28,8 +28,8 @@ class Signup extends Component {
     
     render() {
         return (
-            <div className="login-signup-div">
-                <Form onSubmit={this.handleSubmit}>
+            <div className="form-div">
+                <Form className="styled-form" onSubmit={this.handleSubmit}>
                     <label>Name</label>
                     <input type="text" id="name" value={this.state.name} onChange={e => this.setState({ name: e.target.value})}/>
                     <br/>
