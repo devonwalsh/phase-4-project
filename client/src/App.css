@@ -1,4 +1,80 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.App {
+  background-image: url("./blue-snow.png");
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.homepage {
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  padding: 40px;
+  width: 40%;
+}
+
+.login-signup-div {
+  background-color: white;
+  padding: 10px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+}
+
+.login-signup-form.ui.form {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+}
+
 .recipient-list.ui.container {
-    width: 50%;
+    width: 60%;
     float: center;
-  }
+    text-align: center;
+    background-color: white;
+    height: 100%;
+    padding: 40px;
+}
+
+.add-giftee-button.ui.button {
+  margin: 20px;
+}
+
+.add-giftee-form.ui.form {
+  text-align: left;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.submit-button.ui.button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.giftee-segment.ui.segment {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.giftee-link {
+  font-size: 20px;
+}
+
+.delete-button.ui.button {
+  margin-top: 20px;
+}

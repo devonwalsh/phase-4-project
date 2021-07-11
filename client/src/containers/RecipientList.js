@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import { Container, Button, Segment, Form } from 'semantic-ui-react';
 
 class RecipientList extends Component{
 
@@ -79,9 +79,9 @@ class RecipientList extends Component{
             return (
                 <Container className="recipient-list">
                     <h1>Welcome, {this.props.username}!</h1>
-                    <h2>Recipients List</h2>
+                    <h2>Your Giftees</h2>
                     {this.state.addRecipientFormOpen ? 
-                        <form onSubmit={this.addRecipient}>
+                        <Form className="add-giftee-form" onSubmit={this.addRecipient}>
                             <label>Name</label>
                             <input type="text" id="name" value={this.state.newRecipientName} onChange={e => this.setState({ ...this.state, newRecipientName: e.target.value})}/>
                             <br/>
@@ -90,11 +90,11 @@ class RecipientList extends Component{
                             <br/>
                             <label>Birthday</label>
                             <input type="date" id="birthday" value={this.state.newRecipientBirthday} onChange={e => this.setState({ ...this.state, newRecipientBirthday: e.target.value})}/>
-                            <input type="submit"/>
-                        </form> : 
-                        <button onClick={() => this.toggleAddRecipientForm()}>Add Giftee</button>
+                            <input class="ui button submit-button" type="submit"/>
+                        </Form> : 
+                        <Button color="blue" inverted className="add-giftee-button" onClick={() => this.toggleAddRecipientForm()}>Add Giftee</Button>
                     }
-                    {this.state.recipients.map((item, key) => <p key={key} id={item}><NavLink exact to={`/recipientlist/${item.id}`}>{item.name}</NavLink><button onClick={() => this.deleteRecipient(item.id)}>Delete</button></p>)}
+                    {this.state.recipients.map((item, key) => <Segment key={key} id={item} className="giftee-segment"><NavLink exact to={`/recipientlist/${item.id}`} className="giftee-link">{item.name}</NavLink><p><Button className="delete-button" size="mini" onClick={() => this.deleteRecipient(item.id)}>Delete</Button></p></Segment>)}
                 </Container>
             )
         }
