@@ -3,9 +3,11 @@
 # Installation
 Fork and clone or download this repository, then run these commands in your console:
 
-`bundle install`
-`rails db:create`
-`npm install --prefix client`
+```
+bundle install
+rails db:create
+npm install --prefix client
+```
 
 # Setup
 Starting the backend: `rails s`
