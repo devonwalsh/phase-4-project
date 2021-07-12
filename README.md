@@ -11,6 +11,7 @@ npm install --prefix client
 
 # Setup
 Starting the backend: `rails s`
+
 Starting the frontend: `npm start --prefix client`
 
 # How to Use
